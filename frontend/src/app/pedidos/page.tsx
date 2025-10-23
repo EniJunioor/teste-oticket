@@ -87,17 +87,17 @@ export default function PedidosPage() {
   }
 
   return (
-    <div className="space-y-6">
-      <div className="flex justify-between items-center">
+    <div className="space-y-4 sm:space-y-6">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-3 sm:space-y-0">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Pedidos</h1>
-          <p className="mt-2 text-gray-600">
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Pedidos</h1>
+          <p className="mt-1 sm:mt-2 text-sm sm:text-base text-gray-600">
             Gerencie os pedidos do sistema
           </p>
         </div>
         <button
           onClick={() => setShowForm(!showForm)}
-          className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md text-sm font-medium"
+          className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md text-sm font-medium w-full sm:w-auto"
         >
           {showForm ? 'Cancelar' : 'Novo Pedido'}
         </button>
@@ -166,11 +166,11 @@ export default function PedidosPage() {
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Produtos
               </label>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
                 {produtos.map((produto) => (
                   <div
                     key={produto.id}
-                    className={`border rounded-lg p-4 cursor-pointer transition-colors ${
+                    className={`border rounded-lg p-3 sm:p-4 cursor-pointer transition-colors ${
                       formData.produtos.includes(produto.id)
                         ? 'border-indigo-500 bg-indigo-50'
                         : 'border-gray-300 hover:border-gray-400'
@@ -178,23 +178,23 @@ export default function PedidosPage() {
                     onClick={() => toggleProduto(produto.id)}
                   >
                     <div className="flex items-center justify-between">
-                      <div>
-                        <h3 className="text-sm font-medium text-gray-900">
+                      <div className="flex-1 min-w-0">
+                        <h3 className="text-sm font-medium text-gray-900 truncate">
                           {produto.nome}
                         </h3>
-                        <p className="text-sm text-gray-500">
+                        <p className="text-xs sm:text-sm text-gray-500">
                           R$ {produto.preco.toFixed(2)}
                         </p>
                       </div>
-                      <div className="flex-shrink-0">
+                      <div className="flex-shrink-0 ml-2">
                         {formData.produtos.includes(produto.id) ? (
-                          <div className="w-5 h-5 bg-indigo-600 rounded-full flex items-center justify-center">
-                            <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                          <div className="w-4 h-4 sm:w-5 sm:h-5 bg-indigo-600 rounded-full flex items-center justify-center">
+                            <svg className="w-2 h-2 sm:w-3 sm:h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
                               <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                             </svg>
                           </div>
                         ) : (
-                          <div className="w-5 h-5 border-2 border-gray-300 rounded-full"></div>
+                          <div className="w-4 h-4 sm:w-5 sm:h-5 border-2 border-gray-300 rounded-full"></div>
                         )}
                       </div>
                     </div>
@@ -202,7 +202,7 @@ export default function PedidosPage() {
                 ))}
               </div>
               {formData.produtos.length > 0 && (
-                <p className="mt-2 text-sm text-gray-600">
+                <p className="mt-2 text-xs sm:text-sm text-gray-600">
                   {formData.produtos.length} produto(s) selecionado(s)
                 </p>
               )}
@@ -230,71 +230,107 @@ export default function PedidosPage() {
 
       {/* Lista de pedidos */}
       <div className="bg-white shadow rounded-lg">
-        <div className="px-6 py-4 border-b border-gray-200">
-          <h2 className="text-lg font-medium text-gray-900">
+        <div className="px-4 sm:px-6 py-4 border-b border-gray-200">
+          <h2 className="text-base sm:text-lg font-medium text-gray-900">
             Lista de Pedidos ({pedidos.length})
           </h2>
         </div>
         <div className="overflow-hidden">
           {pedidos.length === 0 ? (
-            <div className="text-center py-12">
-              <svg className="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="text-center py-8 sm:py-12 px-4">
+              <svg className="mx-auto h-8 w-8 sm:h-12 sm:w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
               </svg>
               <h3 className="mt-2 text-sm font-medium text-gray-900">Nenhum pedido</h3>
-              <p className="mt-1 text-sm text-gray-500">Comece criando um novo pedido.</p>
+              <p className="mt-1 text-xs sm:text-sm text-gray-500">Comece criando um novo pedido.</p>
             </div>
           ) : (
-            <div className="overflow-x-auto">
-              <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-gray-50">
-                  <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      ID
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Cliente
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Status
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Produtos
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Data
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
-                  {pedidos.map((pedido) => (
-                    <tr key={pedido.id}>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                        {pedido.id}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                        {pedido.cliente.nome}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
-                          pedido.status === 'PENDENTE' 
-                            ? 'bg-yellow-100 text-yellow-800'
-                            : 'bg-green-100 text-green-800'
-                        }`}>
-                          {pedido.status}
-                        </span>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                        {pedido.produtos.length} produto(s)
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {new Date(pedido.data).toLocaleDateString('pt-BR')}
-                      </td>
+            <>
+              {/* Desktop Table */}
+              <div className="hidden lg:block overflow-x-auto">
+                <table className="min-w-full divide-y divide-gray-200">
+                  <thead className="bg-gray-50">
+                    <tr>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        ID
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Cliente
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Status
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Produtos
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Data
+                      </th>
                     </tr>
+                  </thead>
+                  <tbody className="bg-white divide-y divide-gray-200">
+                    {pedidos.map((pedido) => (
+                      <tr key={pedido.id}>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                          {pedido.id}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                          {pedido.cliente.nome}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
+                            pedido.status === 'PENDENTE' 
+                              ? 'bg-yellow-100 text-yellow-800'
+                              : 'bg-green-100 text-green-800'
+                          }`}>
+                            {pedido.status}
+                          </span>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                          {pedido.produtos.length} produto(s)
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                          {new Date(pedido.data).toLocaleDateString('pt-BR')}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+
+              {/* Mobile Cards */}
+              <div className="lg:hidden">
+                <div className="space-y-3 p-4">
+                  {pedidos.map((pedido) => (
+                    <div key={pedido.id} className="bg-gray-50 rounded-lg p-4">
+                      <div className="flex justify-between items-start mb-2">
+                        <div className="flex-1 min-w-0">
+                          <p className="text-sm font-medium text-gray-900 truncate">
+                            Pedido #{pedido.id}
+                          </p>
+                          <p className="text-xs text-gray-500 truncate mt-1">
+                            {pedido.cliente.nome}
+                          </p>
+                        </div>
+                        <div className="ml-3 flex-shrink-0">
+                          <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
+                            pedido.status === 'PENDENTE' 
+                              ? 'bg-yellow-100 text-yellow-800'
+                              : 'bg-green-100 text-green-800'
+                          }`}>
+                            {pedido.status}
+                          </span>
+                        </div>
+                      </div>
+                      <div className="flex justify-between items-center text-xs text-gray-500">
+                        <span>{pedido.produtos.length} produto(s)</span>
+                        <span>{new Date(pedido.data).toLocaleDateString('pt-BR')}</span>
+                      </div>
+                    </div>
                   ))}
-                </tbody>
-              </table>
-            </div>
+                </div>
+              </div>
+            </>
           )}
         </div>
       </div>

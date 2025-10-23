@@ -63,17 +63,17 @@ export default function ClientesPage() {
   }
 
   return (
-    <div className="space-y-6">
-      <div className="flex justify-between items-center">
+    <div className="space-y-4 sm:space-y-6">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-3 sm:space-y-0">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Clientes</h1>
-          <p className="mt-2 text-gray-600">
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Clientes</h1>
+          <p className="mt-1 sm:mt-2 text-sm sm:text-base text-gray-600">
             Gerencie os clientes do sistema
           </p>
         </div>
         <button
           onClick={() => setShowForm(!showForm)}
-          className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md text-sm font-medium"
+          className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md text-sm font-medium w-full sm:w-auto"
         >
           {showForm ? 'Cancelar' : 'Novo Cliente'}
         </button>
@@ -164,53 +164,81 @@ export default function ClientesPage() {
 
       {/* Lista de clientes */}
       <div className="bg-white shadow rounded-lg">
-        <div className="px-6 py-4 border-b border-gray-200">
-          <h2 className="text-lg font-medium text-gray-900">
+        <div className="px-4 sm:px-6 py-4 border-b border-gray-200">
+          <h2 className="text-base sm:text-lg font-medium text-gray-900">
             Lista de Clientes ({clientes.length})
           </h2>
         </div>
         <div className="overflow-hidden">
           {clientes.length === 0 ? (
-            <div className="text-center py-12">
-              <svg className="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="text-center py-8 sm:py-12 px-4">
+              <svg className="mx-auto h-8 w-8 sm:h-12 sm:w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z" />
               </svg>
               <h3 className="mt-2 text-sm font-medium text-gray-900">Nenhum cliente</h3>
-              <p className="mt-1 text-sm text-gray-500">Comece criando um novo cliente.</p>
+              <p className="mt-1 text-xs sm:text-sm text-gray-500">Comece criando um novo cliente.</p>
             </div>
           ) : (
-            <div className="overflow-x-auto">
-              <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-gray-50">
-                  <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      ID
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Nome
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Email
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
-                  {clientes.map((cliente) => (
-                    <tr key={cliente.id}>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                        {cliente.id}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                        {cliente.nome}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {cliente.email}
-                      </td>
+            <>
+              {/* Desktop Table */}
+              <div className="hidden sm:block overflow-x-auto">
+                <table className="min-w-full divide-y divide-gray-200">
+                  <thead className="bg-gray-50">
+                    <tr>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        ID
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Nome
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Email
+                      </th>
                     </tr>
+                  </thead>
+                  <tbody className="bg-white divide-y divide-gray-200">
+                    {clientes.map((cliente) => (
+                      <tr key={cliente.id}>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                          {cliente.id}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                          {cliente.nome}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                          {cliente.email}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+
+              {/* Mobile Cards */}
+              <div className="sm:hidden">
+                <div className="space-y-3 p-4">
+                  {clientes.map((cliente) => (
+                    <div key={cliente.id} className="bg-gray-50 rounded-lg p-4">
+                      <div className="flex justify-between items-start">
+                        <div className="flex-1 min-w-0">
+                          <p className="text-sm font-medium text-gray-900 truncate">
+                            {cliente.nome}
+                          </p>
+                          <p className="text-xs text-gray-500 truncate mt-1">
+                            {cliente.email}
+                          </p>
+                        </div>
+                        <div className="ml-3 flex-shrink-0">
+                          <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800">
+                            ID: {cliente.id}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
                   ))}
-                </tbody>
-              </table>
-            </div>
+                </div>
+              </div>
+            </>
           )}
         </div>
       </div>
