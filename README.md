@@ -1,4 +1,4 @@
-# 🧾 Mini Sistema de Pedidos – Backend
+# 🧾  Sistema de Pedidos – Backend
 
 API REST construída com Node.js, Express e Prisma (PostgreSQL).
 
