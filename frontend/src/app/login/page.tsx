@@ -80,7 +80,7 @@ export default function LoginPage() {
 
           <div className="text-center px-2">
             <p className="text-xs sm:text-sm text-gray-600">
-              💡 <strong>Login Fake:</strong> Use qualquer email e senha
+               <strong>Login Fake:</strong> Use qualquer email e senha
             </p>
           </div>
         </form>
